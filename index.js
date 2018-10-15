@@ -6,8 +6,8 @@ const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
 
-const papersController = require('./controllers/papers_controller')
-const footnotesController = require('./controllers/footnotes_controller')
+const papersController = require('./lib/controllers/papers_controller')
+const footnotesController = require('./lib/controllers/footnotes_controller')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
