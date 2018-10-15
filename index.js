@@ -6,6 +6,7 @@ const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
 
+
 const papersController = require('./lib/controllers/papers_controller')
 const footnotesController = require('./lib/controllers/footnotes_controller')
 
@@ -18,11 +19,11 @@ app.get('/', (request, response) => {
   response.send('Hello, Publications');
 });
 
-app.get('/api/v1/papers', papersController.index);
-app.post('/api/v1/papers', papersController.create);
+const papers    = require('./lib/routes/api/v1/papers')
+const footnotes = require('./lib/routes/api/v1/footnotes')
 
-app.get('/api/v1/footnotes', footnotesController.index);
-app.post('/api/v1/papers/:id/footnotes', footnotesController.create);
+app.use('/api/v1/papers', papers)
+app.use('/api/v1/footnotes', footnotes)
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);
